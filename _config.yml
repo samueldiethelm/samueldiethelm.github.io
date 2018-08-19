@@ -9,7 +9,7 @@ linkedin_username: samueldiethelm
 
 # Build settings
 markdown: kramdown
-remote_theme: jekyll/minima
+theme: minima
 plugins:
   - jekyll-feed
 
@@ -20,3 +20,12 @@ permalink: /:year/:month/:day/:title/
 kramdown:
   input: GFM
   hard_wrap: true
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
