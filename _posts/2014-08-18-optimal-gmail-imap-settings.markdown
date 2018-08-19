@@ -5,7 +5,7 @@ categories: gmail mac
 ---
 I am writing this post as I have spend most of the day trying to setup Mavericks Mail to work with Gmail properly. I have been using OSX with Gmail for a long time now, but recently I noticed Mail.app on my MacBook Air was consuming too much CPU at times and my iMac was getting unresponsive too as I could hear the hard disk constantly spinning. I noticed after some time that it happened while syncing with gmail servers.<!--more-->
 
-![Gmail Activity](http://www.samueldiethelm.com/wp-content/uploads/2014/01/gmail_activity.png){: .center-image }
+![Gmail Activity](/img/gmail_activity.png){: .center-image }
 
 I did some research and noticed that what was causing the issue was  the multiple "labels" I had in place in Gmail. To be compliant with IMAP, those labels are converted into folders, each of them containing all the messages with the given label. This is a problem when you use multiple labels, and some emails get more than one label, as the email will get saved on your computer duplicated as many times as labels it has, plus once for the "all mail" folder and once more for the regular inbox folder.
 
