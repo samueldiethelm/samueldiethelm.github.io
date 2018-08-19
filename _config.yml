@@ -15,6 +15,7 @@ plugins:
 
 show_excerpts: true
 excerpt_separator: "<!--more-->"
+permalink: /:year/:month/:day/:title/
 
 kramdown:
   input: GFM
