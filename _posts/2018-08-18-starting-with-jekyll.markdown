@@ -25,7 +25,7 @@ bundle exe jekyll serve
 
 That's it, you just created a Jekyll site and if all went ok, you should have your site running on `http://127.0.0.1:4000`.
 
-![](/img/empty_jekyll_site.png)
+![Empty Jekyll site](/img/empty_jekyll_site.png)
 
 In order to stop the server, you can press `CTRL+C` but you don't need to so right now.
 
