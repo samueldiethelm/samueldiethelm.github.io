@@ -15,7 +15,7 @@ After pushing my initial repository to Gitlab, one of the first things I had to 
 ```
 $ ssh-keygen -t rsa
 ```
-When prompted, enter the path to the file where to store the generated keys and then skip the passphrase prompts hitting enter. A private key file and public key file (with `.pub`) will be generated. You should then upload the public ssh key to your Gandi keychain and then store the private key in a GitLab variable called `SSH_PRIVATE_KEY` in _Settings > CI/CD_ in your repository page.  Note, when copying he private key into a GitLab variable, make sure to copy the entire contents of the key file including the `-----BEGIN OPENSSH PRIVATE KEY-----` and `-----END OPENSSH PRIVATE KEY-----` parts otherwise the job will fail, there are some comments about this [here](https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_20786515){:target="_blank"}.
+When prompted, enter the path to the file where to store the generated keys and then skip the passphrase prompts hitting enter. A private key file and public key file (with `.pub`) will be generated. You should then upload the public ssh key to your Gandi keychain and then store the private key in a GitLab variable called `SSH_PRIVATE_KEY` in _Settings > CI/CD_ in your repository page.  Note, when copying the private key into a GitLab variable, make sure to copy the entire contents of the key file including the `-----BEGIN OPENSSH PRIVATE KEY-----` and `-----END OPENSSH PRIVATE KEY-----` parts otherwise the job will fail, there are some comments about this [here](https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_20786515){:target="_blank"}.
 
 Next, we will create a `.gitlab-ci.yml` file in our repository root and add the instructions make use of our SSH key as described [here](https://docs.gitlab.com/ee/ci/ssh_keys/){:target="_blank"}. The `.gitlab-ci.yml` file should look similar to this (removing comment lines):
 ```
@@ -40,9 +40,11 @@ deploy:
     script:
         - scp -o stricthostkeychecking=no -r . $REMOTE_SCP_ADDRESS
 ```
-We need to now tell the runner what to do and when, so the above will automatically create a "deploy" (you can call it anything) stage that will run the script within the `script` tag when changes are pushed to the `master` branch. I also added `-o stricthostkeychecking=no` to avoid getting errors due to host key checks and `-r` for recursive copy of directories into the `REMOTE_SCP_ADDRESS`. I used a Gitlab variable for the remote address to be able to edit it from the Gitlab repository settings which should be similar to this: `12345@sftp.sd6.gpaas.net:/lamp0/web/vhosts/www.domain.com`. Further on, I split this variable into `REMOTE_USER`, `REMOTE_HOST` and `REMOTE_BASEDIR`.
-
-I tried the above but I then got the following error:
+We need to now tell the runner what to do and when, so the above will automatically create a "deploy" (you can call it anything) stage that will run the script within the `script` tag when changes are pushed to the `master` branch. I also added `-o stricthostkeychecking=no` to avoid getting errors due to host key checks and `-r` for recursive copy of directories into the `REMOTE_SCP_ADDRESS`. I used a Gitlab variable for the remote address to be able to edit it from the Gitlab repository settings which should be similar to this:
+```
+12345@sftp.sd6.gpaas.net:/lamp0/web/vhosts/www.domain.com
+```
+Further on, I split this variable into `REMOTE_USER`, `REMOTE_HOST` and `REMOTE_BASEDIR`. I tried the above but I then got the following error:
 ```
 $ scp -o stricthostkeychecking=no -r . $REMOTE_SCP_ADDRESS
 Warning: Permanently added 'sftp.sd6.gpaas.net,155.133.142.129' (ECDSA) to the list of known hosts.
@@ -142,11 +144,11 @@ With all the above, everything should be automated nicely and we should be able 
 There are still some considerations or additional stages that we could add to our script, such as creating a backup of the database for every WP version update, placing a "under maintenance" page during the deployment, etc. but I will leave that for another time.
 
 # Resources
-- https://deliciousbrains.com/install-wordpress-subdirectory-composer-git-submodule/
-- https://docs.gitlab.com/ee/ci/ssh_keys/
-- https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
-- https://unix.stackexchange.com/questions/55190/how-to-send-multiple-commands-to-sftp-using-one-line
-- https://serverfault.com/questions/330503/scp-without-known-hosts-check
-- https://unix.stackexchange.com/questions/181781/using-lftp-with-ssh-agent
-- https://stackoverflow.com/questions/1595565/how-to-implement-recursive-put-in-sftp
-- https://stackoverflow.com/questions/11490145/why-lftp-mirror-only-newer-does-not-transfer-only-newer-file/15320869
+- [Installing WordPress in a Subdirectory](https://deliciousbrains.com/install-wordpress-subdirectory-composer-git-submodule/){:target="_blank"}
+- [Using SSH keys with GitLab CI/CD](https://docs.gitlab.com/ee/ci/ssh_keys/){:target="_blank"}
+- [GitLab: "Enter passphrase for /dev/fd/63" error](https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556){:target="_blank"}
+- [How to send multiple commands to sftp using one line](https://unix.stackexchange.com/questions/55190/how-to-send-multiple-commands-to-sftp-using-one-line){:target="_blank"}
+- [scp without known_hosts check](https://serverfault.com/questions/330503/scp-without-known-hosts-check){:target="_blank"}
+- [Using lftp with ssh-agent](https://unix.stackexchange.com/questions/181781/using-lftp-with-ssh-agent){:target="_blank"}
+- [How to implement recursive put in sftp](https://stackoverflow.com/questions/1595565/how-to-implement-recursive-put-in-sftp){:target="_blank"}
+- [Why lftp mirror --only-newer does not transfer “only newer” file?](https://stackoverflow.com/questions/11490145/why-lftp-mirror-only-newer-does-not-transfer-only-newer-file/15320869){:target="_blank"}
