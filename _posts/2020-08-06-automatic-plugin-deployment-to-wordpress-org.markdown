@@ -12,6 +12,8 @@ Git is an immensly popular and useful tool among developers. There are also othe
 After checking several approaches I have simplified it to the following: 
 
 Create a file `.github/workflows/deploy.yml` with the following content:
+
+{% raw %}
 ```
 name: Deploy to WordPress.org
 on:
@@ -31,8 +33,9 @@ jobs:
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: my-wp-plugin-slug
 ```
+{% endraw %}
 
-The above will tell github to upload the code to WordPress' SVN whenever a tag is pushed with the format `*.*`, such as `1.1`, `4.2`, etc. There is also an optional `SLUG` parameter to tell the exact WordPress plugin slug, however this can be deleted if it matches exactly the github repository slug. It is uses an action created by 10up which simplifies the task here: [10up - action-wordpress-plugin-deploy](https://github.com/10up/action-wordpress-plugin-deploy){:target="_blank"}.
+The above will tell github to upload the code to WordPress' SVN whenever a tag is pushed with the format `*.*`, such as `1.1`, `4.2`, etc. There is also an optional `SLUG` parameter to tell the exact WordPress plugin slug, however this can be deleted if it matches exactly the github repository slug. It uses an action created by 10up which simplifies the task here: [10up - action-wordpress-plugin-deploy](https://github.com/10up/action-wordpress-plugin-deploy){:target="_blank"}.
 
 Additionally I created a file in the root plugin directory: `.gitattributes` with the following content: 
 ```
