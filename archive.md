@@ -1,9 +1,14 @@
 ---
 layout: default
+title: Archive
 ---
 
 <div class="home">
-  {% assign posts = site.posts | where_exp: "item", "item.archived != true" %}
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {% assign posts = site.posts | where_exp: "item", "item.archived == true" %}
 
   {%- if posts.size > 0 -%}
     {%- if page.list_title -%}
@@ -14,11 +19,11 @@ layout: default
       {%- for post in posts -%}
       <li>
         <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h1>
+        <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
-        </h1>
+        </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
         {%- endif -%}

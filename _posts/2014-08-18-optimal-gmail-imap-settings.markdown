@@ -2,6 +2,7 @@
 layout: post
 title:  "Optimal Gmail IMAP Settings"
 categories: gmail mac
+archived: true
 ---
 I am writing this post as I have spend most of the day trying to setup Mavericks Mail to work with Gmail properly. I have been using OSX with Gmail for a long time now, but recently I noticed Mail.app on my MacBook Air was consuming too much CPU at times and my iMac was getting unresponsive too as I could hear the hard disk constantly spinning. I noticed after some time that it happened while syncing with gmail servers.<!--more-->
 

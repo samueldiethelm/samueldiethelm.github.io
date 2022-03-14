@@ -1,6 +1,8 @@
 ---
 layout: post
 categories: mac
+archived: true
+
 ---
 I have worked on all three major platforms, Windows, then Linux for some years and finally Mac. I do on my mac my daily coding and wanted to list the software on which I rely daily.
 
