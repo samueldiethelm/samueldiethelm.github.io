@@ -4,7 +4,6 @@ categories: git
 title: Deploying WordPress to Gandi Simple Hosting with GitLab CI
 tags: [gitlab, wordpress]
 ---
-![WP-Gandi-Gitlab](/img/wp-gandi-gitlab.png)
 For this experiment I wanted to automate a Wordpress website installation using GIT into my Gandi Simple Hosting instance. Along the way I came across several roadblocks which led me to using GitLab CI/CD which I had been wanting to try for some time so I thought this was a good exercise for my curiosity and below I describe how I got it working.<!--more-->
 
 # Setting WordPress as a GIT Submodule
